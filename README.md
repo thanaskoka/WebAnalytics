@@ -22,7 +22,7 @@ In the Folder SparkApplication there is the fat-jar compiled in the previous ste
 
 ###1) Copy the jar in the head node of the cluster with the following command:
 * scp <"local-origin-path"> <"ssh-user">@<"cluster-name">-ssh.azurehdinsight.net:<"destination-path">
- ssh-user is the user that was created at the cluster creation moment
+ \n ssh-user is the user that was created at the cluster creation moment
 	
 ###2) connect to the cluster with the ssh username   trough an ssh protocol (if Windows is used you need to use putty, for mac you have ssh shell by default in your terminal)
 * ssh <"ssh-user">@<"cluster-name">-ssh.azurehdinsight.net (Mac example)
@@ -41,19 +41,19 @@ In the Folder SparkApplication there is the fat-jar compiled in the previous ste
 WebAnalytics.jar \
 "ContainerName" "BlobStorageName" "WebModelPath" "DataModelPath" "DbPath" "ApacheLogPath" "RtxLogPath" "outputAnalysisPath"
 
-**you need to pass to the jar Application 8 parameter to work properly:
+** you need to pass to the jar Application 8 parameter to work properly:
 
-*ContainerName  :the container name of the blob storage used to analyze the data
-*BlobStorageName  :the Blob Storage name used to analyze the data
-*WebModelPath  :the Relative Path of the Container where is saved the WebModel
-*DataModelPath  :the Relative Path of the Container where is saved the WebModel
-*DbPath  :the Relative Path of the Container where is saved the DB dump
-*ApacheLogPath  :the Relative Path of the Container where are saved the Apache Log to be analyzed
-*RtxLogPath  :the Relative Path of the Container where are saved the Rtx Log to be analyzed
-*outputAnalysisPath  :the Relative Path of the Container where you want to save the final Analysis 
+* ContainerName  :the container name of the blob storage used to analyze the data
+* BlobStorageName  :the Blob Storage name used to analyze the data
+* WebModelPath  :the Relative Path of the Container where is saved the WebModel
+* DataModelPath  :the Relative Path of the Container where is saved the WebModel
+* DbPath  :the Relative Path of the Container where is saved the DB dump
+* ApacheLogPath  :the Relative Path of the Container where are saved the Apache Log to be analyzed
+* RtxLogPath  :the Relative Path of the Container where are saved the Rtx Log to be analyzed
+* outputAnalysisPath  :the Relative Path of the Container where you want to save the final Analysis 
 
 ##An example of the 8 parameters can be: 
-*"provaContainer" "tesithanas" "data/WebModel/" "data/DataModel/" "data/DbIstance/" "data/dataset-20161216/" "data/dataset-20161216/" "data/OutputhAnalysis/"
+* "provaContainer" "tesithanas" "data/WebModel/" "data/DataModel/" "data/DbIstance/" "data/dataset-20161216/" "data/dataset-20161216/" "data/OutputhAnalysis/"
 
 
 
