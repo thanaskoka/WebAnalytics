@@ -22,7 +22,9 @@ In the Folder SparkApplication there is the fat-jar compiled in the previous ste
 
 ###1) Copy the jar in the head node of the cluster with the following command:
 * scp <"local-origin-path"> <"ssh-user">@<"cluster-name">-ssh.azurehdinsight.net:<"destination-path">
- \n ssh-user is the user that was created at the cluster creation moment
+ 
+ 
+ ssh-user is the user that was created at the cluster creation moment
 	
 ###2) connect to the cluster with the ssh username   trough an ssh protocol (if Windows is used you need to use putty, for mac you have ssh shell by default in your terminal)
 * ssh <"ssh-user">@<"cluster-name">-ssh.azurehdinsight.net (Mac example)
