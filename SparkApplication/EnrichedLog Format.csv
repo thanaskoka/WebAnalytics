@@ -1,0 +1,38 @@
+NameField;Type;Description;Data Source
+  IpAdress; string ;The Ip Adress that submitted the Request;Apache Log, Rtx Log
+  Time; timestamp ;the time when the request was submitted;Apache Log, Rtx Log
+  SourcePageId; string ;The source page id of the User navigation;Apache Log 
+  ClickedLinkId; string ;The Link id clicked by the User navigation;Apache Log 
+  RequestedPageId; string ;The Target page id of the User navigation;Apache Log ,RtxLog
+  ClickedAttributeId; string ;The Attribute Id clicked by the User navigation;Apache Log,WebModel,DataModel
+  EntityIdClicked; string ;The Attribute Id clicked by the User navigation;
+  ClickedOid; integer ;;
+  SessionId; string ;;
+  SourcePageName; string ;;
+  ClickedLinkName; string ;;
+  ClickedEntityName; string ;;
+  RequestedPageName; string ;;
+  targetUnit; string ;;
+  ClickedTypeOid; string ;;
+  ClickedOidValue; string ;;
+  LogLevel; string ;;
+  host; string ;;
+  javaclass; string ;;
+  miuId; string ;;
+  DisplayedPageId; string ;;
+  trace; string ;;
+  message; string ;;
+  oid; integer ;;
+  PageName; string ;;
+  UnitId; string ;;
+  DisplayedUnitName; string ;;
+  DisplayedEntityId; string ;;
+  DisplayedAttributeId; string ;;
+  TableDB; string ;;
+  DisplayedEntityName; string ;;
+  DisplayedAttributeName; string ;;
+  AttributeDatabaseColumn; string ;;
+  DisplayedOid; integer ;;
+  tableNamewithDBvalue; string ;;
+  DisplayedTypeOid; string ;;
+  DisplayedOidValue; string ;;
