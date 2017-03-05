@@ -2,19 +2,22 @@ package com.webanalytics.config
 import com.webanalytics.helper._
 import java.text._
 import java.util.Locale
-
 import org.apache.spark.sql.SQLContext
 /**
   * Created by Thanas Koka on 21/02/2017.
   */
 trait DataPreparation {
+  // var  basePath= "C:/zeppelin-0.6.2-bin-all/bin/"
   var basePath= "wasb://tesi@datasettesi.blob.core.windows.net/"
-  var WebModelpath="data/WebModel/**/*/*/page*.wr,data/WebModel/**/*/page*.wr,data/WebModel/**/mpage*.wr,data/WebModel/**/*/*/Properties.wr,data/WebModel/**/*/Properties.wr"
-  var DataModelpath="data/DataModel/Properties.wr"
-  var PersistentDatapath="data/DbIstance/"
-  var ApacheLogPath="data/dataset-20161216/localhost*.txt"
-  var RtxLogPath="data//dataset-20161216/RTX.*"
-  var OutputPath="Outputh/"
+   var WebModelpath = basePath  + "data/WebModel/**/*/*/page*.wr," + basePath  +"data/WebModel/**/*/page*.wr," + basePath  + "data/WebModel/**/mpage*.wr," + basePath  +"data/WebModel/**/*/*/Properties.wr," + basePath  + "data/WebModel/**/*/Properties.wr"
+   var  DataModelpath=basePath+"data/DataModel/Properties.wr"
+   var  PersistentDatapath=basePath+"data/DbIstance/"
+   var  ApacheLogPath=basePath+"data/dataset-20161216/localhost*.txt"
+   var RtxLogPath=basePath+"data/dataset-20161216/RTX.*"
+   var OutputPath=basePath+"Output/"
+
+
+
 
   var  ApacheDateFormat: SimpleDateFormat  = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss", Locale.ENGLISH)
   var  DateFormat: SimpleDateFormat  = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.ENGLISH)
@@ -29,37 +32,37 @@ trait DataPreparation {
   var oldTimestamp: Long=0
 
 
-  def readParameters(args: Array[String],sqlContext: SQLContext): Unit ={
+  def readParameters(args: Array[String],sqlContext: SQLContext): Unit = {
 
       val containerName = args(0)
       val blobStorageName = args(1)
       val WebModelInputPath = args(2)
       val DataModelInputPath = args(3)
       val PersistentDataInputPath = args(4)
-      val ApacheLogInputPath=args(5)
-      val RtxLogInputPath=args(6)
-      val OutputParamPath=args(8)
+      val ApacheLogInputPath = args(5)
+      val RtxLogInputPath = args(6)
+      val OutputParamPath = args(7)
 
-    //define Primary Storage Cluster base path
-      var basePath= "wasb://"+containerName+"@"+blobStorageName+".blob.core.windows.net/"
+      //define Primary Storage Cluster base path
+      var basePath = "wasb://" + containerName + "@" + blobStorageName + ".blob.core.windows.net/"
 
       //define Sources Cluster blob storage path
-      WebModelpath=basePath+WebModelInputPath+"/**/*/*/page*.wr,"+basePath+"/**/*/page*.wr,"+basePath+"/**/mpage*.wr,"+basePath+"/**/*/*/Properties.wr,"+basePath+"/**/*/Properties.wr"
-      DataModelpath=basePath+DataModelInputPath+"/Properties.wr"
-      PersistentDatapath=basePath+PersistentDataInputPath+"/"
-      ApacheLogPath=basePath+ApacheLogInputPath+"/localhost*.txt"
-      RtxLogPath=basePath+RtxLogInputPath+"/RTX.*"
-      OutputPath=basePath+OutputParamPath+"/"
+      WebModelpath = basePath + WebModelInputPath + "/**/*/*/page*.wr," + basePath + WebModelInputPath +"/**/*/page*.wr," + basePath +WebModelInputPath + "/**/mpage*.wr," + basePath + WebModelInputPath +"/**/*/*/Properties.wr," + basePath +WebModelInputPath + "/**/*/Properties.wr"
+      DataModelpath = basePath + DataModelInputPath + "/Properties.wr"
+      PersistentDatapath = basePath + PersistentDataInputPath + "/"
+      ApacheLogPath = basePath + ApacheLogInputPath + "/localhost*.txt"
+      RtxLogPath = basePath + RtxLogInputPath + "/RTX.*"
+      OutputPath = basePath + OutputParamPath + "/"
 
-    try {
-      oldTimestamp = Utilities.readLastTimestampIngestion(sqlContext)
-    }catch{
-      case e => {
-        oldTimestamp= 0
+      try {
+        oldTimestamp = Utilities.readLastTimestampIngestion(sqlContext)
+      } catch {
+        case e => {
+          oldTimestamp = 0
+        }
       }
-    }
+
 
   }
-
 
 }

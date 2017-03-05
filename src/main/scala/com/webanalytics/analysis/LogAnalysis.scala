@@ -3,13 +3,14 @@ package com.webanalytics.analysis
 import com.webanalytics.config.DataPreparation
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.SQLContext
-
+import org.apache.spark.sql.hive.HiveContext
 /**
-  * Created by koka on 01/03/2017.
+  * Created by Thanas koka on 04/03/2017.
   */
 object LogAnalysis extends DataPreparation{
 
-  def performAnalysis(sc:SparkContext,sqlContext: SQLContext): Unit = {
+  def performAnalysis(sc:SparkContext): Unit = {
+    val sqlContext = new HiveContext(sc)
 
     val FinalEnrichedLogs =sqlContext.read.parquet(basePath+"/FinalEnrichedLogs.parquet").cache()
     FinalEnrichedLogs.registerTempTable("EnrichedLogs")
@@ -167,6 +168,7 @@ def top10DisplayedViewComponet(sqlContext: SQLContext):Unit={
 
  def top10ClickedLink(sqlContext: SQLContext) :Unit={
 
+
    val ClickedAttribute=sqlContext.sql("select ClickedLinkId,ClickedLinkName,ClickedTypeOid,ClickedOidValue,1 as Occurence from EnrichedLogs where "
      +" (ClickedOidValue is not null and ClickedLinkName is not null  and ClickedOidValue!='NULL') and (ClickedTypeOid ='NAME' or ClickedTypeOid ='TITLE' or "
      +" ClickedTypeOid ='CATEGORY' )  group By Time,ClickedLinkId,ClickedLinkName,ClickedOidValue,ClickedTypeOid ")
@@ -181,7 +183,6 @@ def top10DisplayedViewComponet(sqlContext: SQLContext):Unit={
    concatValueToClickedAttribute.registerTempTable("concatValueToClickedAttribute")
 
    val Top10ClickedInstancesDataView=sqlContext.sql(" select concat(ClickedLinkId,': ',ClickedLinkName) as UnitId,sliceString(collect_list(Top10ClickedInstances),10) as Top10ClickedInstances from concatValueToClickedAttribute  group by ClickedLinkId,ClickedLinkName ").cache()
-   Top10ClickedInstancesDataView.registerTempTable("Top10ClickedInstancesDataView")
 
    Top10ClickedInstancesDataView.write.mode("overwrite").parquet(OutputPath+"/Top10ClickedInstancesDataView.parquet")
    //val Top10ClickedInstancesDataView =sqlContext.read.parquet(OutputPath+"/Top10ClickedInstancesDataView.parquet").cache()

@@ -142,23 +142,9 @@ object Utilities extends DataPreparation {
 
   def parsePagesWebModel(sqlContext: SQLContext):DataFrame={
 
-    def parsePages(line: String): DataFrame = {
-      val df2 :DataFrame =null
 
-      try{
 
-        val df=sqlContext.read
-          .format("xml")
-          .option("rowTag", line)
-          .load(WebModelpath)
-          .select("@id","@name")
-          .toDF(Seq("PageId", "PageName"):_*)
-        return df }
-      catch{
-        case x: org.apache.spark.sql.AnalysisException =>  return df2
-      }
-    }
-    val PartialPageWebModel=Pages.map (parsePages)
+    val PartialPageWebModel=Pages.map(line=>parsePages(line,sqlContext))
       .filter( x => x!=null )
 
     val PageWebModel=PartialPageWebModel(0).unionAll(PartialPageWebModel(1))
@@ -166,6 +152,7 @@ object Utilities extends DataPreparation {
     val PageWebModelRdd=PageWebModel.map ( x => Row( x.getAs[String]("PageId").split("#").last ,x.getAs[String]("PageName")))
 
     val ParsedPageWebModel = sqlContext.createDataFrame(PageWebModelRdd, PageWebModel.schema)
+
     ParsedPageWebModel
   }
 
@@ -233,7 +220,7 @@ object Utilities extends DataPreparation {
                         LinkClicked: String,
                         SourcePage: String,
                         SessionId: String,
-                        TimestampIngestion: BigInt
+                        TimestampIngestion: Long
                       ){
     override def toString =" "+ApacheDateFormat.format(Time)+  s" $IpAdress  $SourcePage  $LinkClicked  $RequestedPage     $OidAttribute       $OidValue   $SessionId    "           }
 
@@ -250,7 +237,7 @@ object Utilities extends DataPreparation {
     return new java.sql.Timestamp(ApacheDateFormat.parse(day+"/"+month+"/"+year+":"+hour+":"+minute+":"+seconds).getTime)
   }
 
-  def getCurrentTimestamp():BigInt={
+  def getCurrentTimestamp():Long={
     val currentTs: Long = System.currentTimeMillis()
     currentTs
   }
@@ -312,7 +299,7 @@ object Utilities extends DataPreparation {
                      trace: String,
                      message: String,
                      oids: Array[Int],
-                     TimestampIngestion:BigInt){
+                     TimestampIngestion:Long){
     override def toString =" "+DateFormat.format(Time)+  s"    $LogLevel   $host    $javaclass   $sessionId   $miuId     $page     $unit  $message   $trace    "
   }
 
@@ -373,24 +360,7 @@ object Utilities extends DataPreparation {
   def addOidValueDb(sc:SparkContext,sqlContext: SQLContext):DataFrame={
     import sqlContext.implicits._
 
-    def setValueOid = (oid: Int,TableName: String, TableColumn: String) => {
-    val curroid= oid.toString
-    val currTableName= TableName
-    val currTableColumn= TableColumn
 
-    try{
-    val oidDB=sqlContext.sql(s"Select $currTableColumn from $currTableName where OID = $curroid ").first()
-    Row(oid,currTableName,currTableColumn,oidDB.getString(0))
-  }
-    catch{
-    case nullExcep: java.lang.NullPointerException =>  Row(oid,currTableName,currTableColumn,"NULL")
-    case analysis: org.apache.spark.sql.AnalysisException =>  Row(oid,currTableName,currTableColumn,"NULL")
-    case noElem: java.util.NoSuchElementException=>  Row(oid,currTableName,currTableColumn,"NULL")
-    case timeToString: java.lang.ClassCastException => Row(oid,currTableName,currTableColumn,"NULL")
-    case  _: Throwable => Row(oid,currTableName,currTableColumn,"NULL")
-  }
-
-  }
 
     val TupleApacheToBuildQuery=sqlContext.sql(" SELECT OidValue, TableDB , AttributeDatabaseColumn FROM ApacheLogandLinks Where OidValue!=0  GROUP BY  OidValue, TableDB , AttributeDatabaseColumn ")//.cache()
 
@@ -400,7 +370,7 @@ object Utilities extends DataPreparation {
 
 
     val CollectedTuple=TupleToBuildQuery.rdd.collect()
-    val BuildOidValueColumn=CollectedTuple.map(x=>(setValueOid(x(0).asInstanceOf[Int],x(1).asInstanceOf[String],x(2).asInstanceOf[String])))
+    val BuildOidValueColumn=CollectedTuple.map(x=>(setValueOid(x(0).asInstanceOf[Int],x(1).asInstanceOf[String],x(2).asInstanceOf[String],sqlContext)))
 
     val OidCol=sc.parallelize(BuildOidValueColumn)
 
@@ -427,5 +397,43 @@ object Utilities extends DataPreparation {
     val readLastTimestamp = sqlContext.read.format("com.databricks.spark.csv").option("header", "false").option("delimiter", ";").load(basePath + "oldTimestampIngestion.csv")
     val lastTimestampIngestion=readLastTimestamp.collect()(0).getString(0).toLong
     lastTimestampIngestion
+  }
+
+  def parsePages(line: String,sqlContext: SQLContext): DataFrame = {
+    val df2 :DataFrame =null
+
+    try{
+
+      val df=sqlContext.read
+        .format("xml")
+        .option("rowTag", line)
+        .load(WebModelpath)
+        .select("@id","@name")
+        .toDF(Seq("PageId", "PageName"):_*)
+
+      return df }
+    catch{
+      case x: org.apache.spark.sql.AnalysisException =>  return df2
+    }
+  }
+
+
+  def setValueOid = (oid: Int,TableName: String, TableColumn: String,sqlContext: SQLContext) => {
+    val curroid= oid.toString
+    val currTableName= TableName
+    val currTableColumn= TableColumn
+
+    try{
+      val oidDB=sqlContext.sql(s"Select $currTableColumn from $currTableName where OID = $curroid ").first()
+      Row(oid,currTableName,currTableColumn,oidDB.getString(0))
+    }
+    catch{
+      case nullExcep: java.lang.NullPointerException =>  Row(oid,currTableName,currTableColumn,"NULL")
+      case analysis: org.apache.spark.sql.AnalysisException =>  Row(oid,currTableName,currTableColumn,"NULL")
+      case noElem: java.util.NoSuchElementException=>  Row(oid,currTableName,currTableColumn,"NULL")
+      case timeToString: java.lang.ClassCastException => Row(oid,currTableName,currTableColumn,"NULL")
+      case  _: Throwable => Row(oid,currTableName,currTableColumn,"NULL")
+    }
+
   }
 }

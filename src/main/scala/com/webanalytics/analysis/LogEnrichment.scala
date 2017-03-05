@@ -3,6 +3,7 @@ package com.webanalytics.analysis
 import com.webanalytics.config._
 import com.webanalytics.helper._
 import org.apache.spark.SparkContext
+import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions._
 /**
   * Created by Thanas Koka on 21/02/2017.
@@ -12,19 +13,18 @@ object LogEnrichment extends DataPreparation {
 
   def main(args: Array[String]): Unit = {
 
-/*  //run as spark standalone mode
+ /* //run as spark standalone mode
     val conf= new SparkConf().setAppName("WebAnalytics").setMaster("local")
     val sc = new SparkContext(conf)
-*/
-    val sc = new SparkContext()
 
-    val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+   // */ val sc = new SparkContext()
+
+    val sqlContext = new SQLContext(sc)
 
     readParameters(args,sqlContext)
-
     val ParsedDataModel = Utilities.parseDataModel(sqlContext)
-
     //Parse Models,Logs and Read Db
+
     val ParsedPageWebModel=Utilities.parsePagesWebModel(sqlContext)
     val ParsedLink=Utilities.parseLink(sqlContext)
     val Dataframes=DbNames.map(line=>Utilities.parseDbIstance(line,sqlContext)).filter(l=>l!=null)
@@ -53,7 +53,7 @@ object LogEnrichment extends DataPreparation {
     RtxWithOidDB.registerTempTable("RtxWithOidDB")
 
     //add oid value to Apache Logs
-    val ApacheWithOidDB= ApacheLogandLinks.join(OidDB, (ApacheLogandLinks("OidValue")===OidDB("oidwithDBvalue")) && (ApacheLogandLinks("TableDB")===OidDB("tableNamewithDBvalue")) &&   ApacheLogandLinks("AttributeDatabaseColumn")===OidDB("tableColumnwithDBvalue"),"left_outer").drop("TableDB").drop("oidwithDBvalue").drop("tableNamewithDBvalue").drop("AttributeDatabaseColumn").withColumnRenamed("tableColumnwithDBvalue","TypeOidClicked").withColumnRenamed("oidDBvalue","ClickedOidDBvalue").dropDuplicates().cache()//.orderBy(asc("Time")).cache()
+    val ApacheWithOidDB= ApacheLogandLinks.join(OidDB, (ApacheLogandLinks("OidValue")===OidDB("oidwithDBvalue")) && (ApacheLogandLinks("TableDB")===OidDB("tableNamewithDBvalue")) &&   ApacheLogandLinks("AttributeDatabaseColumn")===OidDB("tableColumnwithDBvalue"),"left_outer").drop("TableDB").drop("oidwithDBvalue").drop("tableNamewithDBvalue").drop("AttributeDatabaseColumn").withColumnRenamed("tableColumnwithDBvalue","ClickedTypeOid").withColumnRenamed("oidDBvalue","ClickedOidDBvalue").dropDuplicates()//.cache()//.orderBy(asc("Time")).cache()
     ApacheWithOidDB.registerTempTable("ApacheWithOidDB")
 
     //Combine Enriched Rtx Logs with Enriched Apache Logs
@@ -81,7 +81,7 @@ object LogEnrichment extends DataPreparation {
       withColumnRenamed("AttributeName","DisplayedAttributeName").
       withColumnRenamed("oidwithDBvalue","DisplayedOid").
       withColumnRenamed("tableColumnwithDBvalue","DisplayedTypeOid").
-      withColumnRenamed("oidDBvalue","DisplayedOidValue").cache()
+      withColumnRenamed("oidDBvalue","DisplayedOidValue")//.cache()
 
 
     //FinalEnrichedLogs.registerTempTable("EnrichedLogs")
@@ -89,10 +89,10 @@ object LogEnrichment extends DataPreparation {
     FinalEnrichedLogs.write.mode("append").parquet(basePath+"/FinalEnrichedLogs.parquet")
 
     //Save EnrichedLog as Hive Table
-    FinalEnrichedLogs.write.mode("append").saveAsTable("EnrichedLogs")
+    //FinalEnrichedLogs.write.mode("append").saveAsTable("EnrichedLogs")
 
     //perform Analysis On Enriched Logs
-    LogAnalysis.performAnalysis(sc,sqlContext)
+    LogAnalysis.performAnalysis(sc)
   }
 
 }
