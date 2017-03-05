@@ -30,7 +30,7 @@ In the Folder SparkApplication there is the fat-jar compiled in the previous ste
 * ssh <"ssh-user">@<"cluster-name">-ssh.azurehdinsight.net (Mac example)
 
 ###3) Run the spark app 
-* go to the destination path in the cluster and execute the spark Application with the following command
+* go to the destination path in the cluster and execute the spark Application with the following command(you can find the command in the folder SparkApplication/Analytics.sh
 
 /usr/hdp/current/spark-client/bin/spark-submit \
 --class com.webanalytics.analysis.LogEnrichment \
