@@ -7,6 +7,11 @@ Master Thesis on Big Data Web Analytics: Integrating Ifml models with Server Log
 	* LogEnrichment
 	* LogAnalysis
 	
+* **com.webanalytics.config**: contains the scala trait that configure the Source Paths 
+	* DataPreparation
+* **com.webanalytics.config**: contains the scala functions that parse,transform and process the data
+	* Utilities
+	
 ## Compile Project
 
 * Install [sbt](http://www.scala-sbt.org)
