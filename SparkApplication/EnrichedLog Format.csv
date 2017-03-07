@@ -36,4 +36,4 @@ NameField;Type;Description;Data Source
   tableNamewithDBvalue; string ;the Name of the DB Table ;WebModel
   DisplayedTypeOid; string ;"The column name of the Db relative to the Entity activated by the user navigation. Rappresent the ""type"" of the oid";WebModel
   DisplayedOidValue; string ;The Db value of the entity displyaed in the viewcomponent by the User navigation;DB
-Timestamp_ingestion;long;timestamp when the logs are parsed and inserted in the table;
+TimestampIngestion;long;timestamp(in millis) when the logs are parsed and inserted in the table;
