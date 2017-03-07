@@ -8,9 +8,21 @@ import org.apache.spark.sql.hive.HiveContext
   * Created by Thanas koka on 04/03/2017.
   */
 object LogAnalysis extends DataPreparation{
-
-  def performAnalysis(sc:SparkContext): Unit = {
+  def main(args: Array[String]): Unit = {
+    val sc = new SparkContext()
     val sqlContext = new HiveContext(sc)
+
+    while(true)
+    {
+      loadConfiguration(sc,sqlContext,args)
+
+    }
+
+  }
+
+
+  def performAnalysis(sc:SparkContext,sqlContext: SQLContext): Unit = {
+
 
     val FinalEnrichedLogs =sqlContext.read.parquet(basePath+"/FinalEnrichedLogs.parquet").cache()
     FinalEnrichedLogs.registerTempTable("EnrichedLogs")

@@ -9,6 +9,7 @@ libraryDependencies ++= Seq(
   "org.apache.spark" % "spark-sql_2.10" % "1.6.2" % "provided",
   "org.apache.spark" % "spark-hive_2.10" % "1.6.2" % "provided",
   "com.databricks" % "spark-csv_2.10" % "1.5.0",
+  "com.typesafe" % "config" % "1.3.1",
   "com.microsoft.azure" % "azure-storage" % "4.4.0",
   "com.databricks" % "spark-xml_2.10" % "0.3.5"
 )

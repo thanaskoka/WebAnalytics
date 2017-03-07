@@ -2,18 +2,16 @@ package com.webanalytics.config
 import com.webanalytics.helper._
 import java.text._
 import java.util.Locale
+
+import com.typesafe.config.{Config, ConfigFactory, ConfigParseOptions, ConfigSyntax}
+import org.apache.spark.SparkContext
 import org.apache.spark.sql.SQLContext
 /**
   * Created by Thanas Koka on 21/02/2017.
   */
 trait DataPreparation {
   // var  basePath= "C:/zeppelin-0.6.2-bin-all/bin/"
-  var basePath= "wasb://tesi@datasettesi.blob.core.windows.net/"
-   var WebModelpath = basePath  + "data/WebModel/**/*/*/page*.wr," + basePath  +"data/WebModel/**/*/page*.wr," + basePath  + "data/WebModel/**/mpage*.wr," + basePath  +"data/WebModel/**/*/*/Properties.wr," + basePath  + "data/WebModel/**/*/Properties.wr"
-   var  DataModelpath=basePath+"data/DataModel/Properties.wr"
-   var  PersistentDatapath=basePath+"data/DbIstance/"
-   var  ApacheLogPath=basePath+"data/dataset-20161216/localhost*.txt"
-   var RtxLogPath=basePath+"data/dataset-20161216/RTX.*"
+   var basePath= "wasb://tesi@datasettesi.blob.core.windows.net/data/"
    var OutputPath=basePath+"Output/"
 
 
@@ -31,6 +29,22 @@ trait DataPreparation {
   var Pages = Array("Page","MasterPage")
   var oldTimestamp: Long=0
 
+  def loadConfiguration(sc: SparkContext, sqlContext: SQLContext, args: Array[String]): Unit = {
+    val properties_file_path = args(0)
+
+    val conf_file = sc.textFile(properties_file_path)
+    val sb: StringBuffer = new StringBuffer()
+    for (i <- 0 to conf_file.collect().length - 1) {
+      sb.append(conf_file.collect()(i) + "\n")
+    }
+    val conf_file_str: String = sb.toString
+
+    val configOptions: ConfigParseOptions = ConfigParseOptions.defaults().setSyntax(ConfigSyntax.CONF)
+
+    val config: Config = ConfigFactory.parseString(conf_file_str, configOptions)
+    basePath = config.getString("BasePath")
+
+  }
 
   def readParameters(args: Array[String],sqlContext: SQLContext): Unit = {
 
@@ -47,11 +61,11 @@ trait DataPreparation {
       var basePath = "wasb://" + containerName + "@" + blobStorageName + ".blob.core.windows.net/"
 
       //define Sources Cluster blob storage path
-      WebModelpath = basePath + WebModelInputPath + "/**/*/*/page*.wr," + basePath + WebModelInputPath +"/**/*/page*.wr," + basePath +WebModelInputPath + "/**/mpage*.wr," + basePath + WebModelInputPath +"/**/*/*/Properties.wr," + basePath +WebModelInputPath + "/**/*/Properties.wr"
-      DataModelpath = basePath + DataModelInputPath + "/Properties.wr"
-      PersistentDatapath = basePath + PersistentDataInputPath + "/"
-      ApacheLogPath = basePath + ApacheLogInputPath + "/localhost*.txt"
-      RtxLogPath = basePath + RtxLogInputPath + "/RTX.*"
+      //WebModelpath = basePath + WebModelInputPath + "/**/*/*/page*.wr," + basePath + WebModelInputPath +"/**/*/page*.wr," + basePath +WebModelInputPath + "/**/mpage*.wr," + basePath + WebModelInputPath +"/**/*/*/Properties.wr," + basePath +WebModelInputPath + "/**/*/Properties.wr"
+      //DataModelpath = basePath + DataModelInputPath + "/Properties.wr"
+      //PersistentDatapath = basePath + PersistentDataInputPath + "/"
+      //ApacheLogPath = basePath + ApacheLogInputPath + "/localhost*.txt"
+      //RtxLogPath = basePath + RtxLogInputPath + "/RTX.*"
       OutputPath = basePath + OutputParamPath + "/"
 
       try {
