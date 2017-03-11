@@ -38,7 +38,7 @@ In the Folder SparkApplication there is the fat-jar compiled in the previous ste
 * go to the destination path in the cluster and execute the spark Application with the following command(you can find the command in the folder SparkApplication/Analytics.sh
 
 /usr/hdp/current/spark-client/bin/spark-submit \
---class com.webanalytics.analysis.LogEnrichment \
+--class com.webanalytics.analysis.LogAnalysis \
 --name WebAnalytics \
 --master yarn-cluster \
 --driver-memory 10g \
