@@ -11,21 +11,42 @@ object LogAnalysis extends DataPreparation{
   def main(args: Array[String]): Unit = {
     val sc = new SparkContext()
     val sqlContext = new HiveContext(sc)
+    var count=1
+    var interval=0
 
     while(true)
     {
       loadConfiguration(sc,sqlContext,args)
+     for(i <- 0 to IntervalAnalysis.length - 1){
+      performAnalysis(sc,sqlContext,IntervalAnalysis(i))
+
+    }
+      count=count+1
+      performAnalysis(sc,sqlContext,0)
 
     }
 
   }
 
 
-  def performAnalysis(sc:SparkContext,sqlContext: SQLContext): Unit = {
+  def performAnalysis(sc:SparkContext,sqlContext: SQLContext,interval :Integer): Unit = {
 
+    if (interval != 0) {
+    val timeTreshold = System.currentTimeMillis() - (interval * 60000)
+    val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load("FinalEnrichedLogs.csv")
+    readEnrichedLogFromCsv.write.mode("overwrite").parquet("FinalEnrichedLogs.parquet")
 
-    val FinalEnrichedLogs =sqlContext.read.parquet(basePath+"/FinalEnrichedLogs.parquet").cache()
-    FinalEnrichedLogs.registerTempTable("EnrichedLogs")
+    val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "/FinalEnrichedLogs.parquet")
+    val FilterdLogs = FinalEnrichedLogs.filter(FinalEnrichedLogs("TimestampIngestion") >= timeTreshold).cache()
+    FilterdLogs.registerTempTable("EnrichedLogs")
+  }
+  else{
+      val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load("FinalEnrichedLogs.csv")
+      readEnrichedLogFromCsv.write.mode("overwrite").parquet("FinalEnrichedLogs.parquet")
+
+      val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "/FinalEnrichedLogs.parquet").cache()
+      FinalEnrichedLogs.registerTempTable("EnrichedLogs")
+    }
 
     BounceRate(sqlContext)
     EntranceRate(sqlContext)
@@ -230,7 +251,7 @@ def top10DisplayedViewComponet(sqlContext: SQLContext):Unit={
     CombinedAnalysis.repartition(1).write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").save(OutputPath+"/CombinedAnalysis.csv")
     CombinedAnalysis.repartition(1).write.mode("overwrite").format("org.apache.spark.sql.json").save(OutputPath+"/CombinedAnalysis.json")
   }
-    //Helper Functions to perform Analysis
+    //Helper Functions to perform TOP-k Analysis : Take just the top-k over the entire List
   def sliceString = (list : Seq[String], top : Int) => {
     val   ListSize=list.length
     if(ListSize<top){

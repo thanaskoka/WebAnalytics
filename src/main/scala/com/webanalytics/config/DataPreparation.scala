@@ -1,21 +1,32 @@
 package com.webanalytics.config
-import com.webanalytics.helper._
 import java.text._
 import java.util.Locale
 
 import com.typesafe.config.{Config, ConfigFactory, ConfigParseOptions, ConfigSyntax}
+import com.webanalytics.helper.Utilities
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.SQLContext
 /**
   * Created by Thanas Koka on 21/02/2017.
   */
 trait DataPreparation {
-  // var  basePath= "C:/zeppelin-0.6.2-bin-all/bin/"
-   var basePath= "wasb://tesi@datasettesi.blob.core.windows.net/data/"
+   var  basePath= "C:/zeppelin-0.6.2-bin-all/bin/"
+   //var basePath= "wasb://tesi@datasettesi.blob.core.windows.net/data/"
    var OutputPath=basePath+"Output/"
+   var IntervalAnalysis=Array(1,60,720,1440)
 
+  val WebModelInputPath = "data/WebModel"
+  val DataModelInputPath = "data/DataModel"
+  val PersistentDataInputPath = "data/DbIstance"
+  val ApacheLogInputPath =  "data/dataset-20161216"
+  val RtxLogInputPath = "data/dataset-20161216"
 
-
+  //define Sources Cluster blob storage path
+  var WebModelpath = basePath + WebModelInputPath + "/**/*/*/page*.wr," + basePath + WebModelInputPath +"/**/*/page*.wr," + basePath +WebModelInputPath + "/**/mpage*.wr," + basePath + WebModelInputPath +"/**/*/*/Properties.wr," + basePath +WebModelInputPath + "/**/*/Properties.wr"
+  var DataModelpath = basePath + DataModelInputPath + "/Properties.wr"
+  var PersistentDatapath = basePath + PersistentDataInputPath + "/"
+  var ApacheLogPath = basePath + ApacheLogInputPath + "/localhost*.txt"
+  var RtxLogPath = basePath + RtxLogInputPath + "/RTX.*"
 
   var  ApacheDateFormat: SimpleDateFormat  = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss", Locale.ENGLISH)
   var  DateFormat: SimpleDateFormat  = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.ENGLISH)
@@ -44,29 +55,32 @@ trait DataPreparation {
     val config: Config = ConfigFactory.parseString(conf_file_str, configOptions)
     basePath = config.getString("BasePath")
 
+    val interval=config.getString("IntervalAnalysis")
+    IntervalAnalysis=interval.split(",").map(_.toInt)
   }
 
   def readParameters(args: Array[String],sqlContext: SQLContext): Unit = {
+    /* TO BE USED WHEN THE LOGS AND THE MODELS SHOULD BE PARSED BEFORE ANALYZED
 
-      val containerName = args(0)
-      val blobStorageName = args(1)
-      val WebModelInputPath = args(2)
-      val DataModelInputPath = args(3)
-      val PersistentDataInputPath = args(4)
-      val ApacheLogInputPath = args(5)
-      val RtxLogInputPath = args(6)
-      val OutputParamPath = args(7)
+        val containerName = args(0)
+        val blobStorageName = args(1)
+        val WebModelInputPath = args(2)
+        val DataModelInputPath = args(3)
+        val PersistentDataInputPath = args(4)
+        val ApacheLogInputPath = args(5)
+        val RtxLogInputPath = args(6)
+        val OutputParamPath = args(7)
 
-      //define Primary Storage Cluster base path
-      var basePath = "wasb://" + containerName + "@" + blobStorageName + ".blob.core.windows.net/"
-
+        //define Primary Storage Cluster base path
+        var basePath = "wasb://" + containerName + "@" + blobStorageName + ".blob.core.windows.net/"
+  */
       //define Sources Cluster blob storage path
-      //WebModelpath = basePath + WebModelInputPath + "/**/*/*/page*.wr," + basePath + WebModelInputPath +"/**/*/page*.wr," + basePath +WebModelInputPath + "/**/mpage*.wr," + basePath + WebModelInputPath +"/**/*/*/Properties.wr," + basePath +WebModelInputPath + "/**/*/Properties.wr"
-      //DataModelpath = basePath + DataModelInputPath + "/Properties.wr"
-      //PersistentDatapath = basePath + PersistentDataInputPath + "/"
-      //ApacheLogPath = basePath + ApacheLogInputPath + "/localhost*.txt"
+  //    WebModelpath = basePath + WebModelInputPath + "/**/*/*/page*.wr," + basePath + WebModelInputPath +"/**/*/page*.wr," + basePath +WebModelInputPath + "/**/mpage*.wr," + basePath + WebModelInputPath +"/**/*/*/Properties.wr," + basePath +WebModelInputPath + "/**/*/Properties.wr"
+    //  DataModelpath = basePath + DataModelInputPath + "/Properties.wr"
+     // PersistentDatapath = basePath + PersistentDataInputPath + "/"
+     // ApacheLogPath = basePath + ApacheLogInputPath + "/localhost*.txt"
       //RtxLogPath = basePath + RtxLogInputPath + "/RTX.*"
-      OutputPath = basePath + OutputParamPath + "/"
+      //OutputPath = basePath + OutputParamPath + "/"
 
       try {
         oldTimestamp = Utilities.readLastTimestampIngestion(sqlContext)

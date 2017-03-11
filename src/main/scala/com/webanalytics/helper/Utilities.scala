@@ -1,7 +1,6 @@
 package com.webanalytics.helper
 
 import java.sql.Timestamp
-
 import com.webanalytics.config.DataPreparation
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.functions._

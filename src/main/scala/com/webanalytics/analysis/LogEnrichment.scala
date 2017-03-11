@@ -13,7 +13,9 @@ object LogEnrichment extends DataPreparation {
 
   def main(args: Array[String]): Unit = {
 
- /* //run as spark standalone mode
+
+/*
+  //run as spark standalone mode
     val conf= new SparkConf().setAppName("WebAnalytics").setMaster("local")
     val sc = new SparkContext(conf)
 
@@ -23,7 +25,7 @@ object LogEnrichment extends DataPreparation {
 
     readParameters(args,sqlContext)
     val ParsedDataModel = Utilities.parseDataModel(sqlContext)
-    //Parse Models,Logs and Read Db
+    //Parse Models,Logs and Read from Db
 
     val ParsedPageWebModel=Utilities.parsePagesWebModel(sqlContext)
     val ParsedLink=Utilities.parseLink(sqlContext)
@@ -92,7 +94,7 @@ object LogEnrichment extends DataPreparation {
     //FinalEnrichedLogs.write.mode("append").saveAsTable("EnrichedLogs")
 
     //perform Analysis On Enriched Logs
-    LogAnalysis.performAnalysis(sc)
+  //  LogAnalysis.performAnalysis(sc)
   }
 
 }
