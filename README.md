@@ -7,7 +7,7 @@ Master Thesis on Big Data Web Analytics: Integrating Ifml models with Server Log
 	* LogEnrichment
 	* LogAnalysis
 	
-* **com.webanalytics.config**: contains the scala trait that configure the Source Paths 
+* **com.webanalytics.config**: contains the scala trait that configure the DataSource Path(Blob container+Relative Path) and the intervals of the Analysis
 	* DataPreparation
 * **com.webanalytics.config**: contains the scala functions that parse,transform and process the data
 	* Utilities
@@ -23,7 +23,7 @@ The assembly action creates a "fat-jar" containing all the needed dependencies
 
 ## Run Spark Application
 
-In the Folder SparkApplication there is the fat-jar compiled in the previous step.
+In the Folder SparkApplication there is the fat-jar compiled in the previous step and an example of the configuration file to be passed as parameter to the jar application.
 
 ###1) Copy the jar in the head node of the cluster with the following command:
 * scp <"local-origin-path"> <"ssh-user">@<"cluster-name">-ssh.azurehdinsight.net:<"destination-path">
@@ -46,24 +46,8 @@ In the Folder SparkApplication there is the fat-jar compiled in the previous ste
 --executor-cores 5 \
 --num-executors 3 \
 WebAnalytics.jar \
-"ContainerName" "BlobStorageName" "WebModelPath" "DataModelPath" "DbPath" "ApacheLogPath" "RtxLogPath" "outputAnalysisPath"
+"wasb://dataset@demowebanalytics.blob.core.windows.net/AnalysisConfiguration.conf"
 
-** you need to pass to the jar Application 8 parameter to work properly:
-
-* ContainerName  :the container name of the blob storage used to analyze the data
-* BlobStorageName  :the Blob Storage name used to analyze the data
-* WebModelPath  :the Relative Path of the Container where is saved the WebModel
-* DataModelPath  :the Relative Path of the Container where is saved the WebModel
-* DbPath  :the Relative Path of the Container where is saved the DB dump
-* ApacheLogPath  :the Relative Path of the Container where are saved the Apache Log to be analyzed
-* RtxLogPath  :the Relative Path of the Container where are saved the Rtx Log to be analyzed
-* outputAnalysisPath  :the Relative Path of the Container where you want to save the final Analysis 
-
-##An example of the 8 parameters can be: 
-* "provaContainer" "tesithanas" "data/WebModel/" "data/DataModel/" "data/DbIstance/" "data/dataset-20161216/" "data/dataset-20161216/" "data/OutputhAnalysis/"
-
-
-
-
+** you need to pass to the jar Application as parameter the configuration file path to work properly:
 
 

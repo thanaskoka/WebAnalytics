@@ -28,6 +28,7 @@ trait DataPreparation {
   var ApacheLogPath = basePath + ApacheLogInputPath + "/localhost*.txt"
   var RtxLogPath = basePath + RtxLogInputPath + "/RTX.*"
 
+  var  EnrichedLogsPath="/data/FinalEnrichedLogs.csv"
   var  ApacheDateFormat: SimpleDateFormat  = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss", Locale.ENGLISH)
   var  DateFormat: SimpleDateFormat  = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.ENGLISH)
 
@@ -55,8 +56,12 @@ trait DataPreparation {
     val config: Config = ConfigFactory.parseString(conf_file_str, configOptions)
     basePath = config.getString("BasePath")
 
+    EnrichedLogsPath=config.getString("EnrichedLogsPath")
+
+
     val interval=config.getString("IntervalAnalysis")
     IntervalAnalysis=interval.split(",").map(_.toInt)
+
   }
 
   def readParameters(args: Array[String],sqlContext: SQLContext): Unit = {
