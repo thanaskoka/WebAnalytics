@@ -289,8 +289,9 @@ def top10DisplayedViewComponet(sqlContext: SQLContext):Unit={
     val JsonDF=sc.parallelize(Seq(TokenizedString)).toDF
 
     //write output to one file
-    JsonDF.repartition(1).write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", ";").option("header", "false").save("data/test3.json")
+    JsonDF.repartition(1).write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", ";").option("header", "false").save(OutputPath+statisticPath+".json")
 
+   // JsonDF.coalesce(1, true).mode("overwrite").saveAsTextFile(OutputPath+statisticPath+".json")
     println("\t Terminated  "+interval+" Minutes Interval Analysis \n")
 
   }
