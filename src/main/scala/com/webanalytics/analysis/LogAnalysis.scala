@@ -7,6 +7,7 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.webanalytics.config.DataPreparation
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.functions.asc
 import org.apache.spark.sql.hive.HiveContext
 
 /**
@@ -56,15 +57,15 @@ object LogAnalysis extends DataPreparation{
    /* val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load("FinalEnrichedLogs.csv")
     readEnrichedLogFromCsv.write.mode("overwrite").parquet("FinalEnrichedLogs.parquet")
 */
-    val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "data/FinalEnrichedLogs.parquet")
-    val FilterdLogs = FinalEnrichedLogs.filter(FinalEnrichedLogs("TimestampIngestion") >= timeTreshold).cache()
+    val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "data/FinalEnrichedLogs.parquet").orderBy(asc("Time"))
+    val FilterdLogs = FinalEnrichedLogs.filter(FinalEnrichedLogs("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
     FilterdLogs.registerTempTable("EnrichedLogs")
   }
   else{/*
       val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load("FinalEnrichedLogs.csv")
       readEnrichedLogFromCsv.write.mode("overwrite").parquet("FinalEnrichedLogs.parquet")
 */
-      val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "data/FinalEnrichedLogs.parquet").cache()
+      val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "data/FinalEnrichedLogs.parquet").orderBy(asc("Time")).cache()
       FinalEnrichedLogs.registerTempTable("EnrichedLogs")
     }
 
