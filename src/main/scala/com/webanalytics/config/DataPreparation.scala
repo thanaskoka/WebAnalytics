@@ -54,6 +54,7 @@ trait DataPreparation {
     val configOptions: ConfigParseOptions = ConfigParseOptions.defaults().setSyntax(ConfigSyntax.CONF)
 
     val config: Config = ConfigFactory.parseString(conf_file_str, configOptions)
+
     basePath = config.getString("BasePath")
 
     EnrichedLogsPath=config.getString("EnrichedLogsPath")
