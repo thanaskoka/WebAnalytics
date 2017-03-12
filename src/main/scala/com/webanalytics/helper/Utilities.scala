@@ -435,4 +435,78 @@ object Utilities extends DataPreparation {
     }
 
   }
+
+  //Functions that create the inner part of each element of the JSON Object
+  def decorateArray(jsonObject:StringBuilder,unit:String,sqlContext:SQLContext):Unit={
+    val typeAnalysis=sqlContext.sql("Select name from statisticType where Unitid='"+unit+"' ").map(_.getString(0)).collect()
+
+    for(i<-0 to typeAnalysis.size-1 ){
+      val name=typeAnalysis(i)
+      var position="null"
+      var typeAnal="null"
+      var value="null"
+      try{
+        //val position=sqlContext.sql("Select position from statisticType where Unitid='"+unit+"' and name='"+typeAnalysis+"' ").first().getString(0)
+        position=sqlContext.sql("Select position from statisticType where Unitid='"+unit+"' and name='"+name+"' ").first().getString(0)
+        typeAnal=sqlContext.sql("Select type from statisticType where Unitid='"+unit+"' and name='"+name+"' ").first().getString(0)
+        value=sqlContext.sql("Select "+name+" from CombinedAnalysis where UnitId='"+unit+"' ").first()(0).toString()
+      }
+      catch{
+        case x: java.util.NoSuchElementException => position= "null "
+      }
+
+
+      jsonObject++="\n{"
+
+      jsonObject++=" \"name\": \""+name+"\" ,\n"
+      jsonObject++=" \"position\": \""+position+"\" ,\n"
+      jsonObject++=" \"type\": \""+typeAnal+"\" ,\n"
+
+      if(value.contains("WrappedArray")){
+        var Wrappedvalue=sqlContext.sql("Select "+name+" from CombinedAnalysis where UnitId='"+unit+"' ").toJSON.collect()(0).toString
+        var substr=Wrappedvalue.split("\":").last
+        substr=substr.substring(0,substr.length()-1)
+        jsonObject++=" \"value\": "+substr+" \n"
+      }else{
+        jsonObject++=" \"value\": \""+value+"\" \n"
+      }
+      jsonObject++="}\n ,"
+
+    }
+    // val name=sqlContext.sql("Select name from statisticType where Unitid='"+unit+"' and name='"+typeAnalysis+"' ")
+    jsonObject.setLength(jsonObject.length() - 2);
+
+    // val typeAnalysis=sqlContext.sql("Select type from statisticType where Unitid="+unit+"")
+  }
+
+//Functions that Build an JSON Object with the analysis
+  def buildJsonObject(sqlContext:SQLContext):String={
+    var jsonObject = new StringBuilder
+    val prefixJson="{\n  \"analytics\" : { \n "
+    val suffixJson=" \n\t       }\n\n}"
+
+    var statisticType= sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ",").option("header", "true").load(basePath+statisticTypePath)
+    statisticType.registerTempTable("statisticType")
+
+    val units=statisticType.select("Unitid").distinct.map(_.getString(0)).collect()
+    // var statisticType= sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ",").option("header", "true").load("statisticType.csv")
+
+
+    jsonObject++=prefixJson
+
+    for(i<-0 to units.size-1){
+      jsonObject++=="\n \""+units(i)+ "\" : ["
+      decorateArray(jsonObject,units(i),sqlContext)
+      jsonObject++="] ,\n"
+
+    }
+
+    // Remove the last space and comma
+    jsonObject.setLength(jsonObject.length() - 2);
+    jsonObject++=suffixJson
+
+    jsonObject.toString
+  }
+
+
 }

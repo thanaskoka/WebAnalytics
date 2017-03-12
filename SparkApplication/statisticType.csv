@@ -1,0 +1,9 @@
+Unitid,name,type,position
+page14,ResidenceTime,number,color
+page14,AverageVisitsPerPagePerSession,number,color
+page14,BounceRate,number,color
+page14,EntranceRate,number,color
+ln64,Top10ClickedInstances,stringlist,properties
+ln64,LinkOut,percentage,in
+ln64,LinkIn,percentage,out
+pwu7,Top10DisplayedInstances,stringlist,properties

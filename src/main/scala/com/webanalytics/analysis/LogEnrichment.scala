@@ -2,7 +2,7 @@ package com.webanalytics.analysis
 
 import com.webanalytics.config._
 import com.webanalytics.helper._
-import org.apache.spark.SparkContext
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions._
 /**
@@ -14,19 +14,19 @@ object LogEnrichment extends DataPreparation {
   def main(args: Array[String]): Unit = {
 
 
-/*
+
   //run as spark standalone mode
     val conf= new SparkConf().setAppName("WebAnalytics").setMaster("local")
     val sc = new SparkContext(conf)
 
-   // */ val sc = new SparkContext()
+   //  val sc = new SparkContext()
 
     val sqlContext = new SQLContext(sc)
 
     readParameters(args,sqlContext)
-    val ParsedDataModel = Utilities.parseDataModel(sqlContext)
     //Parse Models,Logs and Read from Db
 
+    val ParsedDataModel = Utilities.parseDataModel(sqlContext)
     val ParsedPageWebModel=Utilities.parsePagesWebModel(sqlContext)
     val ParsedLink=Utilities.parseLink(sqlContext)
     val Dataframes=DbNames.map(line=>Utilities.parseDbIstance(line,sqlContext)).filter(l=>l!=null)
@@ -88,7 +88,7 @@ object LogEnrichment extends DataPreparation {
 
     //FinalEnrichedLogs.registerTempTable("EnrichedLogs")
 
-    FinalEnrichedLogs.write.mode("append").parquet(basePath+"/FinalEnrichedLogs.parquet")
+    FinalEnrichedLogs.write.mode("append").parquet(basePath+"data/FinalEnrichedLogs.parquet")
 
     //Save EnrichedLog as Hive Table
     //FinalEnrichedLogs.write.mode("append").saveAsTable("EnrichedLogs")

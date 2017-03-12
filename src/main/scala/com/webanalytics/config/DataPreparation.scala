@@ -20,7 +20,7 @@ trait DataPreparation {
   val PersistentDataInputPath = "data/DbIstance"
   val ApacheLogInputPath =  "data/dataset-20161216"
   val RtxLogInputPath = "data/dataset-20161216"
-
+  var statisticTypePath="data/statisticType.csv"
   //define Sources Cluster blob storage path
   var WebModelpath = basePath + WebModelInputPath + "/**/*/*/page*.wr," + basePath + WebModelInputPath +"/**/*/page*.wr," + basePath +WebModelInputPath + "/**/mpage*.wr," + basePath + WebModelInputPath +"/**/*/*/Properties.wr," + basePath +WebModelInputPath + "/**/*/Properties.wr"
   var DataModelpath = basePath + DataModelInputPath + "/Properties.wr"
@@ -58,10 +58,12 @@ trait DataPreparation {
 
     EnrichedLogsPath=config.getString("EnrichedLogsPath")
 
+    OutputPath=basePath+config.getString("OutputPath")
 
     val interval=config.getString("IntervalAnalysis")
     IntervalAnalysis=interval.split(",").map(_.toInt)
 
+    statisticTypePath=config.getString("statisticType")
   }
 
   def readParameters(args: Array[String],sqlContext: SQLContext): Unit = {
