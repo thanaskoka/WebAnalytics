@@ -278,6 +278,7 @@ def top10DisplayedViewComponet(sqlContext: SQLContext):Unit={
     //CombinedAnalysis.registerTempTable("CombinedAnalysis")
 
     CombinedAnalysis.cache()
+    println("Processed Analysis and Cached")
     //val CombinedAnalysis =sqlContext.read.parquet(OutputPath+AnalysisType+"/CombinedAnalysis.parquet").cache()
     CombinedAnalysis.registerTempTable("CombinedAnalysis")
     //CombinedAnalysis.repartition(1).write.mode("overwrite").parquet(OutputPath+statisticPath+".parquet")

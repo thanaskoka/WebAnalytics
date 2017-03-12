@@ -484,6 +484,7 @@ object Utilities extends DataPreparation {
     var jsonObject = new StringBuilder
     val prefixJson="{\n  \"analytics\" : { \n "
     val suffixJson=" \n\t       }\n\n}"
+    println("\n\tStarting Building Analytics JSON Object")
 
     var statisticType= sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ",").option("header", "true").load(basePath+statisticTypePath)
     statisticType.registerTempTable("statisticType")
@@ -504,8 +505,10 @@ object Utilities extends DataPreparation {
     // Remove the last space and comma
     jsonObject.setLength(jsonObject.length() - 2);
     jsonObject++=suffixJson
+    println("\n\tCompleted Building Analytics JSON Object")
 
     jsonObject.toString
+
   }
 
 
