@@ -57,7 +57,7 @@ object LogAnalysis extends DataPreparation{
    /* val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load("FinalEnrichedLogs.csv")
     readEnrichedLogFromCsv.write.mode("overwrite").parquet("FinalEnrichedLogs.parquet")
 */
-    val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "data/FinalEnrichedLogs.parquet").orderBy(asc("Time"))
+    val FinalEnrichedLogs = sqlContext.read.parquet(basePath + EnrichedLogsPath).orderBy(asc("Time"))
     val FilterdLogs = FinalEnrichedLogs.filter(FinalEnrichedLogs("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
     FilterdLogs.registerTempTable("EnrichedLogs")
   }
@@ -65,7 +65,7 @@ object LogAnalysis extends DataPreparation{
       val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load("FinalEnrichedLogs.csv")
       readEnrichedLogFromCsv.write.mode("overwrite").parquet("FinalEnrichedLogs.parquet")
 */
-      val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "data/FinalEnrichedLogs.parquet").orderBy(asc("Time")).cache()
+      val FinalEnrichedLogs = sqlContext.read.parquet(basePath +EnrichedLogsPath).orderBy(asc("Time")).cache()
       FinalEnrichedLogs.registerTempTable("EnrichedLogs")
     }
 
