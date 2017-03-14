@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.webanalytics.config.DataPreparation
 import org.apache.spark.SparkContext
-import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions.asc
 import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.{DataFrame, SQLContext}
 
 /**
   * Created by Thanas koka on 04/03/2017.
@@ -54,19 +54,25 @@ object LogAnalysis extends DataPreparation{
 
     if (interval != 0) {
     val timeTreshold = System.currentTimeMillis() - (interval * 60000)
-   /* val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load("FinalEnrichedLogs.csv")
-    readEnrichedLogFromCsv.write.mode("overwrite").parquet("FinalEnrichedLogs.parquet")
-*/
-    val FinalEnrichedLogs = sqlContext.read.parquet(basePath + EnrichedLogsPath).orderBy(asc("Time"))
+      //READ FROM CSV
+   val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load(basePath + EnrichedLogsPath)
+      val FilterdLogs = readEnrichedLogFromCsv.filter(readEnrichedLogFromCsv("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
+      FilterdLogs.registerTempTable("EnrichedLogs")
+
+      //READ FROM PARQUET
+ /*   val FinalEnrichedLogs = sqlContext.read.parquet(basePath + EnrichedLogsPath).orderBy(asc("Time"))
     val FilterdLogs = FinalEnrichedLogs.filter(FinalEnrichedLogs("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
-    FilterdLogs.registerTempTable("EnrichedLogs")
+    FilterdLogs.registerTempTable("EnrichedLogs")*/
   }
-  else{/*
-      val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load("FinalEnrichedLogs.csv")
-      readEnrichedLogFromCsv.write.mode("overwrite").parquet("FinalEnrichedLogs.parquet")
-*/
-      val FinalEnrichedLogs = sqlContext.read.parquet(basePath +EnrichedLogsPath).orderBy(asc("Time")).cache()
-      FinalEnrichedLogs.registerTempTable("EnrichedLogs")
+  else{
+      //READ FROM CSV
+
+      val readEnrichedLogFromCsv=sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load(basePath + EnrichedLogsPath).orderBy(asc("Time")).cache()
+      readEnrichedLogFromCsv.registerTempTable("EnrichedLogs")
+
+      //READ FROM PARQUET
+  /*    val FinalEnrichedLogs = sqlContext.read.parquet(basePath +EnrichedLogsPath).orderBy(asc("Time")).cache()
+      FinalEnrichedLogs.registerTempTable("EnrichedLogs")*/
     }
 
     BounceRate(sqlContext)
@@ -283,10 +289,9 @@ def top10DisplayedViewComponet(sqlContext: SQLContext):Unit={
     //CombinedAnalysis.repartition(1).write.mode("overwrite").parquet(OutputPath+statisticPath+".parquet")
     //CombinedAnalysis.repartition(1).write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").save(OutputPath+statisticPath+".csv")
     //CombinedAnalysis.repartition(1).write.mode("overwrite").format("org.apache.spark.sql.json").save(OutputPath+statisticPath+".json")
-    import sqlContext.implicits._
     //Build Analytics JSON OBJECT
-    val TokenizedString=buildJsonObject(sqlContext)
-    val JsonDF=sc.parallelize(Seq(TokenizedString)).toDF
+    val TokenizedString=buildJsonObject(CombinedAnalysis,sqlContext)
+    //val JsonDF=sc.parallelize(Seq(TokenizedString)).toDF
     val JsonRdd=sc.parallelize(Seq(TokenizedString))
     //write output to one file
     //JsonDF.repartition(1).write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", ";").option("header", "false").save(OutputPath+statisticPath+".json")
@@ -304,9 +309,9 @@ def top10DisplayedViewComponet(sqlContext: SQLContext):Unit={
   }
 
   //Functions that create the inner part of each element of the JSON Object
-  def decorateArray(jsonObject:StringBuilder,unit:String,sqlContext:SQLContext):Unit={
-    val typeAnalysis=sqlContext.sql("Select name from statisticType where Unitid='"+unit+"' ").map(_.getString(0)).collect()
-    println("\n\t sto decorando")
+  def decorateArray(jsonObject:StringBuilder,typeAnalysis: Array[String],unit: String,sqlContext:SQLContext):Unit={
+
+    //  val typeAnalysis=sqlContext.sql("Select name from statisticType where Unitid='"+unit+"' ").map(_.getString(0)).collect()
 
     for(i<-0 to typeAnalysis.size-1 ){
       val name=typeAnalysis(i)
@@ -315,12 +320,12 @@ def top10DisplayedViewComponet(sqlContext: SQLContext):Unit={
       var value="null"
       try{
         //val position=sqlContext.sql("Select position from statisticType where Unitid='"+unit+"' and name='"+typeAnalysis+"' ").first().getString(0)
-        position=sqlContext.sql("Select position from statisticType where Unitid='"+unit+"' and name='"+name+"' ").first().getString(0)
-        typeAnal=sqlContext.sql("Select type from statisticType where Unitid='"+unit+"' and name='"+name+"' ").first().getString(0)
+        position=sqlContext.sql("Select position from statisticType where   name='"+name+"' ").first().getString(0)
+        typeAnal=sqlContext.sql("Select type from statisticType where name='"+name+"' ").first().getString(0)
         value=sqlContext.sql("Select "+name+" from CombinedAnalysis where UnitId='"+unit+"' ").first()(0).toString()
       }
       catch{
-        case x: java.util.NoSuchElementException => position= "null "
+        case excp=> value= "null"
       }
 
 
@@ -347,40 +352,37 @@ def top10DisplayedViewComponet(sqlContext: SQLContext):Unit={
     // val typeAnalysis=sqlContext.sql("Select type from statisticType where Unitid="+unit+"")
   }
 
+
   //Functions that Build an JSON Object with the analysis
-  def buildJsonObject(sqlContext:SQLContext):String={
-    var jsonObject = new StringBuilder
-    val prefixJson="{\n  \"analytics\" : { \n "
-    val suffixJson=" \n\t       }\n\n}"
-    println("\n\tStarting Building Analytics JSON Object")
+  def buildJsonObject(CombinedAnalysis: DataFrame ,sqlContext:SQLContext):String={
+      var jsonObject = new StringBuilder
+      val prefixJson="{\n  \"analytics\" : { \n "
+      val suffixJson=" \n\t       }\n\n}"
+
+      var statisticType= sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ",").option("header", "true").load("statisticType.csv")
+      statisticType.registerTempTable("statisticType")
+
+      val units=CombinedAnalysis.select("UnitId").distinct.map(_.getString(0)).collect()
+      val nameAnalysis=sqlContext.sql("Select distinct(name) from statisticType").map(_.getString(0)).collect()
+      // var statisticType= sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ",").option("header", "true").load("statisticType.csv")
 
 
-    var statisticType= sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ",").option("header", "true").load(basePath+statisticTypePath)
-    statisticType.registerTempTable("statisticType")
+      jsonObject++=prefixJson
 
-    val units=statisticType.select("Unitid").distinct.map(_.getString(0)).collect()
-    // var statisticType= sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ",").option("header", "true").load("statisticType.csv")
+      for(i<-0 to units.size-1){
+        jsonObject++=="\n \""+units(i)+ "\" : ["
+        decorateArray(jsonObject,nameAnalysis,units(i),sqlContext)
+        jsonObject++="] ,\n"
 
+      }
 
-    jsonObject++=prefixJson
+      // Remove the last space and comma
+      jsonObject.setLength(jsonObject.length() - 2);
+      jsonObject++=suffixJson
 
-    for(i<-0 to units.size-1){
-
-      jsonObject++=="\n \""+units(i)+ "\" : ["
-      decorateArray(jsonObject,units(i),sqlContext)
-      jsonObject++="] ,\n"
-
+      jsonObject.toString
     }
 
-    // Remove the last space and comma
-    jsonObject.setLength(jsonObject.length() - 2);
-    jsonObject++=suffixJson
-    println("\n\tCompleted Building Analytics JSON Object")
-
-    jsonObject.toString
-
   }
-
-}
 
 

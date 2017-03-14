@@ -1,0 +1,1705 @@
+{
+  "analytics" : { 
+ 
+ "pwu11" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Angels Fall ","Lost Hearts in Italy: A Novel ","On the Way to the Wedding ","Cover of Night: A Novel ","The Wrong Hostage: A Novel ","The Undomestic Goddess ","1001 Books You Must Read Before You Die ","A Short History of Myth ","The Devil in the White City: Murder, Magic & Madness and the Fair that Changed America ","The Great Gatsby "] 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu14" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["The Long Tail : Why the Future of Business Is Selling Less of More ","Good to Great and the Social Sectors: A Monograph to Accompany Good to Great "] 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu6Previous" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Agile Web Development with Rails : A Pragmatic Guide ","An Affair with a House "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu8att10" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Art","Business & Investing","Computers & Internet","Graphic Design","Architecture ","Romance","Politics","Literature & Fiction","History","Mystery & Thrillers"] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu11att10" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Romance","Politics","History","Graphic Design","Art","Literature & Fiction","Mystery & Thrillers","Computers & Internet","Architecture ","Business & Investing"] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "page66" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "176.39449541284404" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "10.76" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "page69" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "28.0" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "0.04" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu6Block" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["An Affair with a House ","Agile Web Development with Rails : A Pragmatic Guide "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "dau2" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Chris Anderson "] 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "dau3" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["The Creative License : Giving Yourself Permission to be the Artist You Truly Are ","The Lost Painting: The Quest for a Caravaggio Masterpiece ","Persepolis 2: The Story of a Return ","Angels Fall ","The 5th Horseman (Women's Murder Club)","The Devil in the White City: Murder, Magic & Madness and the Fair that Changed America ","The Undomestic Goddess ","The Pirate Coast: Thomas Jefferson, The First Marines, and the Secret Mission of 1805 ","Genghis Khan and the Making of the Modern World ","Tutankhamun and the Golden Age of the Pharaohs"] 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "oln24" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["The Long Tail : Why the Future of Business Is Selling Less of More ","Good to Great and the Social Sectors: A Monograph to Accompany Good to Great "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "page14" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "0.68" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "102.46548672566372" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "56.0" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "0.24" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "page16" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "23.538144776766362" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "791.44" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "0.28" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu14att10" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["The Long Tail : Why the Future of Business Is Selling Less of More ","Good to Great and the Social Sectors: A Monograph to Accompany Good to Great "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu14att12" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Good to Great and the Social Sectors: A Monograph to Accompany Good to Great ","The Long Tail : Why the Future of Business Is Selling Less of More "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu6" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["David Douglas Duncan","Nora Roberts ","Andrea Lee ","Elizabeth Lowell ","Lee Child ","Nathaniel Hawthorne","Dan Cederholm ","Andy Hunt ","Robert M Overstreet ","Bruce Bawer "] 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu7" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["An Affair with a House ","Agile Web Development with Rails : A Pragmatic Guide ","Collage Unleashed ","Angels Fall ","In the Pink: Dorothy Draper: Americas Most Fabulous Decorator ","The Adsense Code: What Google Never Told You About Making Money With Adsense "] 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu8" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Graphic Artists Guild Handbook : Pricing & Ethical Guidelines ","Collage Unleashed ","The Creative License : Giving Yourself Permission to be the Artist You Truly Are ","Picasso & Lump: A Dachshund's Odyssey ","Persepolis 2: The Story of a Return ","The Lost Painting: The Quest for a Caravaggio Masterpiece ","Londonistan ","The Mighty and the Almighty: Reflections on America, God, and World Affairs ","The One Percent Doctrine ","While Europe Slept: How Radical Islam is Destroying the West from Within "] 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "ln58" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Art","Architecture ","Romance","Graphic Design","Politics","Nonfiction","Fiction","Business & Technology","Arts & Entertainment","Business & Investing"] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "page21" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "0.32" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "25.564457702961857" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "1020.04" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "color" ,
+ "type": "number" ,
+ "value": "0.48" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu6Next" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["An Affair with a House ","Agile Web Development with Rails : A Pragmatic Guide "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "hinu1" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Romance","Graphic Design","Mystery & Thrillers","Arts & Entertainment","History","Computers & Internet","Nonfiction","Business & Technology","Fiction","Art"] 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "hinu3" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Literature & Fiction","Politics","Business & Investing","History","Computers & Internet","Art","Mystery & Thrillers","Romance","Graphic Design","Architecture "] 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "ln63" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "in" ,
+ "type": "percentage" ,
+ "value": "0.6579220779220779" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Business & Investing","Computers & Internet","Arts & Entertainment","History","Architecture ","Graphic Design","Politics","Literature & Fiction","Nonfiction","Mystery & Thrillers"] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "out" ,
+ "type": "percentage" ,
+ "value": "1.0" 
+}
+] ,
+
+ "ln64" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "in" ,
+ "type": "percentage" ,
+ "value": "1.0" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Graphic Artists Guild Handbook : Pricing & Ethical Guidelines ","Picasso & Lump: A Dachshund's Odyssey ","Egyptology, Search for the Tomb of Osiris ","The Wrong Hostage: A Novel ","The Ruins ","Mayflower: A Story of Courage, Community, and War ","Cover of Night: A Novel ","Black Order: A Novel ","The Undomestic Goddess ","The Great Gatsby "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "out" ,
+ "type": "percentage" ,
+ "value": "0.8908774546358439" 
+}
+] ,
+
+ "ln66" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Art","Romance","Mystery & Thrillers","Architecture ","Nonfiction","History","Fiction","Literature & Fiction","Computers & Internet","Graphic Design"] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "ln67" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "in" ,
+ "type": "percentage" ,
+ "value": "0.017012987012987014" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["In the Pink: Dorothy Draper: Americas Most Fabulous Decorator ","The Adsense Code: What Google Never Told You About Making Money With Adsense ","Collage Unleashed ","An Affair with a House ","Angels Fall ","Agile Web Development with Rails : A Pragmatic Guide "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "out" ,
+ "type": "percentage" ,
+ "value": "0.0054271273510647115" 
+}
+] ,
+
+ "ln68" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "in" ,
+ "type": "percentage" ,
+ "value": "0.32506493506493506" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Art","Graphic Design","Mystery & Thrillers","Computers & Internet","Romance","Politics","History","Architecture ","Business & Investing","Literature & Fiction"] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "out" ,
+ "type": "percentage" ,
+ "value": "0.10369541801309139" 
+}
+] ,
+
+ "pwu6Last" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["An Affair with a House ","Agile Web Development with Rails : A Pragmatic Guide "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu6First" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["An Affair with a House ","Agile Web Development with Rails : A Pragmatic Guide "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu6att24" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Collage Unleashed ","The Force of Reason ","Londonistan ","Programming Ruby: The Pragmatic Programmers' Guide, Second Edition ","The Devil in the White City: Murder, Magic & Madness and the Fair that Changed America ","American Theocracy: The Peril and Politics of Radical Religion, Oil, and Borrowed Money in the 21stCentury ","On the Way to the Wedding ","Beginning PHP 5 and MySQL: From Novice to Professional ","The Pirate Coast: Thomas Jefferson, The First Marines, and the Secret Mission of 1805 ","Phantom: Chainfire Trilogy, Part 2"] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu14att37" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["The Long Tail : Why the Future of Business Is Selling Less of More ","Good to Great and the Social Sectors: A Monograph to Accompany Good to Great "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu14att38" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["The Long Tail : Why the Future of Business Is Selling Less of More ","Good to Great and the Social Sectors: A Monograph to Accompany Good to Great "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+] ,
+
+ "pwu14att39" : [
+{ "name": "Top10DisplayedInstances" ,
+ "position": "null " ,
+ "type": "stringlist" ,
+ "value": "null" 
+}
+ ,
+{ "name": "EntranceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "ResidenceTime" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkOut" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+ ,
+{ "name": "Top10ClickedInstances" ,
+ "position": "properties" ,
+ "type": "stringlist" ,
+ "value": ["Good to Great and the Social Sectors: A Monograph to Accompany Good to Great ","The Long Tail : Why the Future of Business Is Selling Less of More "] 
+}
+ ,
+{ "name": "AverageVisitsPerPagePerSession" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "BounceRate" ,
+ "position": "null " ,
+ "type": "number" ,
+ "value": "null" 
+}
+ ,
+{ "name": "LinkIn" ,
+ "position": "null " ,
+ "type": "percentage" ,
+ "value": "null" 
+}
+]  
+	       }
+
+}
