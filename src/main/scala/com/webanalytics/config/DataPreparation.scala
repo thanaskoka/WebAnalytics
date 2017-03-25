@@ -64,7 +64,7 @@ trait DataPreparation {
     val interval=config.getString("IntervalAnalysis")
     IntervalAnalysis=interval.split(",").map(_.toInt)
 
-    statisticTypePath=config.getString("statisticType")
+    statisticTypePath=basePath+config.getString("statisticType")
   }
 
   def readParameters(args: Array[String],sqlContext: SQLContext): Unit = {

@@ -11,7 +11,8 @@ libraryDependencies ++= Seq(
   "com.databricks" % "spark-csv_2.10" % "1.5.0",
   "com.typesafe" % "config" % "1.3.1",
   "com.microsoft.azure" % "azure-storage" % "4.4.0",
-  "com.databricks" % "spark-xml_2.10" % "0.3.5"
+  "com.databricks" % "spark-xml_2.10" % "0.3.5",
+  "org.json4s"%"json4s-native_2.10"%"3.2.10"
 )
 
 // Copy all managed dependencies to <build-root>/lib_managed/
