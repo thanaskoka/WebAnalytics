@@ -90,6 +90,8 @@ trait DataPreparation {
       //RtxLogPath = basePath + RtxLogInputPath + "/RTX.*"
       //OutputPath = basePath + OutputParamPath + "/"
 
+
+
       try {
         oldTimestamp = Utilities.readLastTimestampIngestion(sqlContext)
       } catch {
