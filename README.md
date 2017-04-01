@@ -42,9 +42,9 @@ In the Folder SparkApplication there is the fat-jar compiled in the previous ste
 --name WebAnalytics \
 --master yarn-cluster \
 --driver-memory 10g \
---executor-memory 5G \
---executor-cores 5 \
---num-executors 3 \
+--executor-memory 20G \
+--executor-cores 8 \
+--num-executors 6 \
 WebAnalytics.jar \
 "wasb://dataset@demowebanalytics.blob.core.windows.net/AnalysisConfiguration.conf"
 
