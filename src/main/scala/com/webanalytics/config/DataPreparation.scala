@@ -58,13 +58,17 @@ trait DataPreparation {
 
     basePath = config.getString("BasePath")
 
-    EnrichedLogsPath=config.getString("EnrichedLogsPath")
+    EnrichedLogsPath = config.getString("EnrichedLogsPath")
 
-    OutputPath=basePath+config.getString("OutputPath")
+    OutputPath = basePath + config.getString("OutputPath")
+    try {
+    val interval = config.getString("IntervalAnalysis")
+    IntervalAnalysis = interval.split(",").map(_.toInt)
+    }
+    catch{
 
-    val interval=config.getString("IntervalAnalysis")
-    IntervalAnalysis=interval.split(",").map(_.toInt)
-
+      case _ =>  IntervalAnalysis=Array(10)
+    }
     statisticTypePath=basePath+config.getString("statisticType")
     historyAnalysis=config.getBoolean("historyAnalysis")
   }

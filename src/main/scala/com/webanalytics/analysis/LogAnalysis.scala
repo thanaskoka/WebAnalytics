@@ -31,48 +31,70 @@ object LogAnalysis extends DataPreparation {
 
 
       while (true) {
-      println("Starting analysis number " + count)
-      loadConfiguration(sc, sqlContext, args)
-      IntervalAnalysis.foreach(x=>performAnalysis(sc,sqlContext,x))
-      count = count + 1
+        println("Starting analysis number " + count)
+        loadConfiguration(sc, sqlContext, args)
+        try {
+          for (i <- 0 to IntervalAnalysis.length - 1) {
+            performAnalysis(sc, sqlContext, IntervalAnalysis(i))
+          }
+        }
+        catch{
+          case _ =>  println("Somethinkg went Wrong during Analysis phase")
+        }
+
+    count = count + 1
       if (historyAnalysis == true) {
-      println("\t Starting Complete History analysis ")
-      performAnalysis(sc, sqlContext, 0)
-      println(s"\t Terminated Complete History analysis in ${(endAnalysisTime - startAnalysisTime) / 1000} Seconds \n\n ")
-      }
+        try {
+          println("\t Starting Complete History analysis ")
+          performAnalysis(sc, sqlContext, 0)
+          println(s"\t Terminated Complete History analysis in ${(endAnalysisTime - startAnalysisTime) / 1000} Seconds \n\n ")
+        }
+        catch{
+          case _ =>  println("Somethinkg went Wrong during History Analysis phase")
+        }
+        }
     }
   }
 
 
   def performAnalysis(sc: SparkContext, sqlContext: SQLContext, interval: Integer): Unit = {
    var performAnalysis=true
+   var LogCount: Long= -1
 
+    try{
     if (interval != 0) {
       val timeTreshold = System.currentTimeMillis() - (interval * 60000)
       //READ FROM CSV
       val readEnrichedLogFromCsv = sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load(basePath + EnrichedLogsPath)
-      val FilterdLogs = readEnrichedLogFromCsv.filter(readEnrichedLogFromCsv("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
-      FilterdLogs.registerTempTable("EnrichedLogs")
+    //  val FilterdLogs = readEnrichedLogFromCsv.filter(readEnrichedLogFromCsv("TimestampIngestion") >= timeTreshold)//.orderBy(asc("Time")).cache()
+    //  FilterdLogs.registerTempTable("EnrichedLogs")
 
-      if(FilterdLogs.count()==0){performAnalysis=false}
 
       //save as Parquet File
-     // readEnrichedLogFromCsv.write.mode("overwrite").parquet(basePath + "EnrichedLogs.parquet")
+      readEnrichedLogFromCsv.write.mode("overwrite").parquet(basePath + "EnrichedLogs.parquet")
       //READ FROM PARQUET
-   // val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "EnrichedLogs.parquet").orderBy(asc("Time"))
-  //  val FilterdLogs = FinalEnrichedLogs.filter(FinalEnrichedLogs("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
-     // FilterdLogs.registerTempTable("EnrichedLogs")
+    val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "EnrichedLogs.parquet")//.orderBy(asc("Time"))
+    val FilterdLogs = FinalEnrichedLogs.filter(FinalEnrichedLogs("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
+     FilterdLogs.registerTempTable("EnrichedLogs")
+      LogCount=FilterdLogs.count()
+      if(LogCount==0){performAnalysis=false}
+
     } else {
       //READ FROM CSV
-      val readEnrichedLogFromCsv = sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load(basePath + EnrichedLogsPath).orderBy(asc("Time")).cache()
-         readEnrichedLogFromCsv.registerTempTable("EnrichedLogs")
+      val readEnrichedLogFromCsv = sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load(basePath + EnrichedLogsPath)//.orderBy(asc("Time")).cache()
+        // readEnrichedLogFromCsv.registerTempTable("EnrichedLogs")
       //save as Parquet File
-     // readEnrichedLogFromCsv.write.mode("overwrite").parquet(basePath + "EnrichedLogs.parquet")
+     readEnrichedLogFromCsv.write.mode("overwrite").parquet(basePath + "EnrichedLogs.parquet")
       //READ FROM PARQUET
-    //    val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "EnrichedLogs.parquet").orderBy(asc("Time")).cache()
-     // FinalEnrichedLogs.registerTempTable("EnrichedLogs")
-      if(readEnrichedLogFromCsv.count()==0){performAnalysis=false}
+        val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "EnrichedLogs.parquet").orderBy(asc("Time")).cache()
+      FinalEnrichedLogs.registerTempTable("EnrichedLogs")
+      LogCount=readEnrichedLogFromCsv.count()
+      if(LogCount==0){performAnalysis=false}
 
+    }
+    }
+    catch{
+      case _ =>  println("\nSomething went wrong during Reading Log Phase \n")
     }
 
     startAnalysisTime=System.currentTimeMillis()
@@ -92,7 +114,9 @@ object LogAnalysis extends DataPreparation {
 
     println(s"\tAnalysis Execution Time: ${(endAnalysisTime - startAnalysisTime) / 1000} Seconds \n\n")
     sqlContext.dropTempTable("EnrichedLogs")
-  }
+    println(s"\tAnalyzed "+LogCount+" Log Lines")
+
+    }
 
 
   def BounceRate(sqlContext: SQLContext): Unit = {
@@ -311,9 +335,14 @@ object LogAnalysis extends DataPreparation {
         case _ =>  value="null"
       }
 
-      if(value.contains("WrappedArray")){
-        val  ArrayValue=sqlContext.sql("Select "+name+" from CombinedAnalysis where UnitId='"+unit+"' ").first()(0).asInstanceOf[scala.collection.mutable.WrappedArray[String]].toArray[String]
-        decoratedArray +=Map("type"->typeAnal,"name"-> name,"position"-> position,"value"->ArrayValue)
+      if(value.contains("WrappedArray")) {
+        val ArrayValue = sqlContext.sql("Select " + name + " from CombinedAnalysis where UnitId='" + unit + "' ").first()(0).asInstanceOf[scala.collection.mutable.WrappedArray[String]].toArray[String]
+        try {
+        decoratedArray += Map("type" -> typeAnal, "name" -> name, "position" -> position, "value" -> ArrayValue)
+        }
+        catch{
+          case _=> println("Empty Array")
+        }
       }else{
         if(value !="null" && numericValue==0.0){
           decoratedArray +=Map("type"->typeAnal,"name"-> name,"position"-> position,"value"->value)
@@ -334,6 +363,7 @@ object LogAnalysis extends DataPreparation {
   def buildJsonObject(CombinedAnalysis: DataFrame, sqlContext: SQLContext): String = {
     var UnitsObject:ListBuffer[Map[String,Any]]=ListBuffer()
 
+    try{
 
     val statisticType= sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ",").option("header", "true").load(statisticTypePath)
     statisticType.registerTempTable("statisticType")
@@ -341,11 +371,16 @@ object LogAnalysis extends DataPreparation {
     val units=CombinedAnalysis.select("UnitId").distinct.map(_.getString(0)).collect()
     val nameAnalysis=sqlContext.sql("Select distinct(name) from statisticType").map(_.getString(0)).collect()
 
-    units.foreach(unit=>{
+    units.filter(x=>x!="null" && x!= null).foreach(unit=>{
       val decoratedArray=decorateArray(nameAnalysis,unit,sqlContext)
       UnitsObject += Map(unit->decoratedArray)
+
     })
 
+    }
+    catch{
+      case _ =>  println("Something went Wrong in Json Creation")
+    }
     val JsonObject=Map("analytics"->UnitsObject)
     val json=Json(DefaultFormats).write(JsonObject)
     val prettyJson=pretty(render(parse(json)))
