@@ -1,60 +1,51 @@
 package com.webanalytics.analysis
 
-import org.json4s.native.Json
-import org.json4s.DefaultFormats
-import org.json4s.jackson.JsonMethods._
-import org.json4s._
-import scala.collection.mutable.ListBuffer
-
 import java.text.{DateFormat, SimpleDateFormat}
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.webanalytics.config.DataPreparation
 import org.apache.spark.SparkContext
-import org.apache.spark.sql.functions.asc
 import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.functions._
 import org.apache.spark.sql.{DataFrame, SQLContext}
+import org.json4s.jackson.JsonMethods._
+import org.json4s.native.Json
+import org.json4s.{DefaultFormats, _}
+
+import scala.collection.mutable.ListBuffer
 
 /**
   * Created by Thanas koka on 04/03/2017.
   */
 object LogAnalysis extends DataPreparation {
   var count = 1
+  var startAnalysisTime: Long= _
+  var endAnalysisTime: Long= _
+  var interval = 0
 
   def main(args: Array[String]): Unit = {
     //  val conf= new SparkConf().setAppName("WebAnalytics").setMaster("local")
     //    val sc = new HiveContext(conf)
     val sc = new SparkContext()
     val sqlContext = new HiveContext(sc)
-
-    def mapper = new ObjectMapper()
-
-    mapper.registerModule(DefaultScalaModule)
     sqlContext.udf.register("sliceString", sliceString)
 
-    var interval = 0
 
-    while (true) {
-      println("Starting analysis number " + count + " \n\n")
-
+      while (true) {
+      println("Starting analysis number " + count)
       loadConfiguration(sc, sqlContext, args)
-      for (i <- 0 to IntervalAnalysis.length - 1) {
-        performAnalysis(sc, sqlContext, IntervalAnalysis(i))
-
-      }
+      IntervalAnalysis.foreach(x=>performAnalysis(sc,sqlContext,x))
       count = count + 1
+      if (historyAnalysis == true) {
       println("\t Starting Complete History analysis ")
-
       performAnalysis(sc, sqlContext, 0)
-      println("\t Terminated Complete History analysis \n\n ")
-
+      println(s"\t Terminated Complete History analysis in ${(endAnalysisTime - startAnalysisTime) / 1000} Seconds \n\n ")
+      }
     }
-
   }
 
 
   def performAnalysis(sc: SparkContext, sqlContext: SQLContext, interval: Integer): Unit = {
+   var performAnalysis=true
 
     if (interval != 0) {
       val timeTreshold = System.currentTimeMillis() - (interval * 60000)
@@ -63,32 +54,44 @@ object LogAnalysis extends DataPreparation {
       val FilterdLogs = readEnrichedLogFromCsv.filter(readEnrichedLogFromCsv("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
       FilterdLogs.registerTempTable("EnrichedLogs")
 
+      if(FilterdLogs.count()==0){performAnalysis=false}
+
+      //save as Parquet File
+     // readEnrichedLogFromCsv.write.mode("overwrite").parquet(basePath + "EnrichedLogs.parquet")
       //READ FROM PARQUET
-      /*   val FinalEnrichedLogs = sqlContext.read.parquet(basePath + EnrichedLogsPath).orderBy(asc("Time"))
-    val FilterdLogs = FinalEnrichedLogs.filter(FinalEnrichedLogs("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
-    FilterdLogs.registerTempTable("EnrichedLogs")*/
+   // val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "EnrichedLogs.parquet").orderBy(asc("Time"))
+  //  val FilterdLogs = FinalEnrichedLogs.filter(FinalEnrichedLogs("TimestampIngestion") >= timeTreshold).orderBy(asc("Time")).cache()
+     // FilterdLogs.registerTempTable("EnrichedLogs")
     } else {
       //READ FROM CSV
       val readEnrichedLogFromCsv = sqlContext.read.format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").load(basePath + EnrichedLogsPath).orderBy(asc("Time")).cache()
-      readEnrichedLogFromCsv.registerTempTable("EnrichedLogs")
-
+         readEnrichedLogFromCsv.registerTempTable("EnrichedLogs")
+      //save as Parquet File
+     // readEnrichedLogFromCsv.write.mode("overwrite").parquet(basePath + "EnrichedLogs.parquet")
       //READ FROM PARQUET
-      /*    val FinalEnrichedLogs = sqlContext.read.parquet(basePath +EnrichedLogsPath).orderBy(asc("Time")).cache()
-      FinalEnrichedLogs.registerTempTable("EnrichedLogs")*/
+    //    val FinalEnrichedLogs = sqlContext.read.parquet(basePath + "EnrichedLogs.parquet").orderBy(asc("Time")).cache()
+     // FinalEnrichedLogs.registerTempTable("EnrichedLogs")
+      if(readEnrichedLogFromCsv.count()==0){performAnalysis=false}
+
     }
 
+    startAnalysisTime=System.currentTimeMillis()
+    if(performAnalysis){
     BounceRate(sqlContext)
     EntranceRate(sqlContext)
     AverageVisitsPerPage(sqlContext)
     AverageResidenceTime(sqlContext)
     OutputLink(sqlContext)
     InputLink(sqlContext)
-    top10DisplayedViewComponet(sqlContext)
+    top10DisplayedViewComponent(sqlContext)
     top10ClickedLink(sqlContext)
 
-
     CombineOverallAnalysis(sc, sqlContext, interval)
+    }
+    endAnalysisTime=System.currentTimeMillis()
 
+    println(s"\tAnalysis Execution Time: ${(endAnalysisTime - startAnalysisTime) / 1000} Seconds \n\n")
+    sqlContext.dropTempTable("EnrichedLogs")
   }
 
 
@@ -185,9 +188,9 @@ object LogAnalysis extends DataPreparation {
     //LinkInputPercentageDataView.repartition(1).write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", ";").option("header", "true").save(OutputPath+"/LinkInputPercentageDataView.csv")
   }
 
-  def top10DisplayedViewComponet(sqlContext: SQLContext): Unit = {
+  def top10DisplayedViewComponent(sqlContext: SQLContext): Unit = {
 
-    val DisplayedAttribute = sqlContext.sql("select UnitId,DisplayedUnitName,DisplayedAttributeName,DisplayedOidValue,1 as Occurence from EnrichedLogs where " + " (DisplayedOidValue is not null  and DisplayedOidValue!='NULL') and (DisplayedAttributeName ='name' or DisplayedAttributeName ='title' or " + " DisplayedAttributeName ='category' )  group By Time,UnitId,DisplayedUnitName,DisplayedOidValue,DisplayedAttributeName ")
+    val DisplayedAttribute = sqlContext.sql("select UnitId,DisplayedUnitName,DisplayedAttributeName,DisplayedOidValue,1 as Occurence from EnrichedLogs where " + " (DisplayedOidValue is not null  and DisplayedOidValue!='NULL')   group By Time,UnitId,DisplayedUnitName,DisplayedOidValue,DisplayedAttributeName ")
     DisplayedAttribute.registerTempTable("DisplayedAttribute")
 
     val CountDisplayedOccurance = sqlContext.sql(" select UnitId,DisplayedUnitName,DisplayedOidValue,cast( sum(Occurence) as int) as Sum from DisplayedAttribute  " + " group by UnitId,DisplayedUnitName,DisplayedOidValue order by UnitId,Sum desc ")
@@ -209,7 +212,7 @@ object LogAnalysis extends DataPreparation {
   def top10ClickedLink(sqlContext: SQLContext): Unit = {
 
 
-    val ClickedAttribute = sqlContext.sql("select ClickedLinkId,ClickedLinkName,ClickedTypeOid,ClickedOidValue,1 as Occurence from EnrichedLogs where " + " (ClickedOidValue is not null and ClickedLinkName is not null  and ClickedOidValue!='NULL') and (ClickedTypeOid ='NAME' or ClickedTypeOid ='TITLE' or " + " ClickedTypeOid ='CATEGORY' )  group By Time,ClickedLinkId,ClickedLinkName,ClickedOidValue,ClickedTypeOid ")
+    val ClickedAttribute = sqlContext.sql("select ClickedLinkId,ClickedLinkName,ClickedTypeOid,ClickedOidValue,1 as Occurence from EnrichedLogs where " + " (ClickedOidValue is not null and ClickedLinkName is not null  and ClickedOidValue!='NULL')   group By Time,ClickedLinkId,ClickedLinkName,ClickedOidValue,ClickedTypeOid ")
     ClickedAttribute.registerTempTable("ClickedAttribute")
 
     val CountClickedOccurance = sqlContext.sql(" select ClickedLinkId,ClickedLinkName,ClickedOidValue,cast( sum(Occurence) as int) as Sum from ClickedAttribute  " + " group by ClickedLinkId,ClickedLinkName,ClickedOidValue order by ClickedLinkId,Sum desc ")
@@ -289,31 +292,39 @@ object LogAnalysis extends DataPreparation {
   def decorateArray(typeAnalysis: Array[String], unit: String, sqlContext: SQLContext): ListBuffer[Map[String,Any]] = {
     var decoratedArray:ListBuffer[Map[String,Any]]=ListBuffer()
 
-    for(i<-0 to typeAnalysis.size-1 ){
-      val name=typeAnalysis(i)
+    typeAnalysis.foreach(x=>{
+      val name=x
       var position="null"
       var typeAnal="null"
       var value="null"
+      var numericValue=0.0
       try{
+        //val position=sqlContext.sql("Select position from statisticType where Unitid='"+unit+"' and name='"+typeAnalysis+"' ").first().getString(0)
         position=sqlContext.sql("Select position from statisticType where   name='"+name+"' ").first().getString(0)
         typeAnal=sqlContext.sql("Select type from statisticType where name='"+name+"' ").first().getString(0)
         value=sqlContext.sql("Select "+name+" from CombinedAnalysis where UnitId='"+unit+"' ").first()(0).toString()
+        numericValue=value.toDouble
       }
       catch{
-        case x=> value= "null"
+        case nullPointer: java.lang.NullPointerException=> value="null"
+        case numberFormat: java.lang.NumberFormatException=> numericValue=0.0
+        case _ =>  value="null"
       }
-
-
 
       if(value.contains("WrappedArray")){
         val  ArrayValue=sqlContext.sql("Select "+name+" from CombinedAnalysis where UnitId='"+unit+"' ").first()(0).asInstanceOf[scala.collection.mutable.WrappedArray[String]].toArray[String]
         decoratedArray +=Map("type"->typeAnal,"name"-> name,"position"-> position,"value"->ArrayValue)
       }else{
-        decoratedArray +=Map("type"->typeAnal,"name"-> name,"position"-> position,"value"->value)
+        if(value !="null" && numericValue==0.0){
+          decoratedArray +=Map("type"->typeAnal,"name"-> name,"position"-> position,"value"->value)
+        }
+        else{
+          if(value !="null" && numericValue!=0.0){
+            decoratedArray +=Map("type"->typeAnal,"name"-> name,"position"-> position,"value"->numericValue)
+          }
+        }
       }
-
-    }
-
+    })
     decoratedArray
 
   }
@@ -330,11 +341,10 @@ object LogAnalysis extends DataPreparation {
     val units=CombinedAnalysis.select("UnitId").distinct.map(_.getString(0)).collect()
     val nameAnalysis=sqlContext.sql("Select distinct(name) from statisticType").map(_.getString(0)).collect()
 
-    for(i<-0 to units.size-1){
-      val decoratedArray=decorateArray(nameAnalysis,units(i),sqlContext)
-      UnitsObject += Map(units(i)->decoratedArray)
-
-    }
+    units.foreach(unit=>{
+      val decoratedArray=decorateArray(nameAnalysis,unit,sqlContext)
+      UnitsObject += Map(unit->decoratedArray)
+    })
 
     val JsonObject=Map("analytics"->UnitsObject)
     val json=Json(DefaultFormats).write(JsonObject)

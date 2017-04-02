@@ -14,6 +14,7 @@ trait DataPreparation {
    //var basePath= "wasb://tesi@datasettesi.blob.core.windows.net/data/"
    var OutputPath=basePath+"Output/"
    var IntervalAnalysis=Array(1,60,720,1440)
+   var historyAnalysis=false
 
   val WebModelInputPath = "data/WebModel"
   val DataModelInputPath = "data/DataModel"
@@ -65,6 +66,7 @@ trait DataPreparation {
     IntervalAnalysis=interval.split(",").map(_.toInt)
 
     statisticTypePath=basePath+config.getString("statisticType")
+    historyAnalysis=config.getBoolean("historyAnalysis")
   }
 
   def readParameters(args: Array[String],sqlContext: SQLContext): Unit = {

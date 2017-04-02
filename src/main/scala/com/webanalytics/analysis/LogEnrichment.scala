@@ -5,6 +5,8 @@ import com.webanalytics.helper._
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions._
+//import org.apache.spark.streaming._
+//import org.apache.spark.streaming.StreamingContext._
 /**
   * Created by Thanas Koka on 21/02/2017.
   */
@@ -88,7 +90,7 @@ object LogEnrichment extends DataPreparation {
 
     //FinalEnrichedLogs.registerTempTable("EnrichedLogs")
 
-    FinalEnrichedLogs.write.mode("append").parquet(basePath+"data/FinalEnrichedLogs.parquet")
+    FinalEnrichedLogs.write.mode("overwrite").parquet(basePath+"data/FinalEnrichedLogs.parquet")
 
     //Save EnrichedLog as Hive Table
     //FinalEnrichedLogs.write.mode("append").saveAsTable("EnrichedLogs")
